@@ -2,9 +2,11 @@
 
 @section('content')
     <div class="d-flex align-items-center mb-3">
-        <a href="{{ route('newses.create') }}" class="ml-auto btn btn-success">
-            Добавить новость
-        </a>
+        @can('create', App\News::class)
+            <a href="{{ route('newses.create') }}" class="ml-auto btn btn-success">
+                Добавить новость
+            </a>
+        @endcan
     </div>
 
     @forelse($news as $newse)
@@ -21,6 +23,7 @@
                     {{ $newse->created_at->format("Y-m-d H:i") }}
                 </div>
             </div>
+            @can('update', $newse)
             <form class="ml-auto" action="{{ route('newses.destroy', $newse) }}" method="POST">
                 @csrf
                 @method('DELETE')
@@ -29,15 +32,19 @@
                     <button class="btn btn-danger">Удалить</button>
                 </div>
             </form>
+            @endcan
         </div>
         <hr class="my-4">
-
 
     @empty
         <div class="alert alert-secondary">
             Ничего нет:(
         </div>
     @endforelse
+
+    <div class="d-flex justify-content-center">
+        {{ $news->links() }}
+    </div>
 
 
 @endsection

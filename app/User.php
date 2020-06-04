@@ -41,4 +41,8 @@ class User extends Authenticatable
         return $this->admin === true;
     }
 
+    function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
 }

@@ -7,4 +7,5 @@ Auth::routes();
 
 Route::redirect('/', 'newses');
 Route::resource('newses', 'NewsController');
-Route::post('/getNews/{id}','NewsController@getNews')->name('newses.getNews');
+Route::resource('comments', 'CommentController')->except('show');
+Route::get('/getNews/{id}','NewsController@getNews')->name('newses.getNews');

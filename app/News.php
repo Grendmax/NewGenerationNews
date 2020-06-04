@@ -28,4 +28,8 @@ class News extends Model
         'category'=>CategoryCast::class
     ];
 
+    function comments() {
+        return $this->hasMany(Comment::class);
+    }
+
 }
